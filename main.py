@@ -18,30 +18,50 @@ def mastermind(guesses, lownum, highnum):
         for num in secretNum:
             tempSecret.append(num)
         print(f"Guess number {guessNum}")
-        guess1 = input("Guess first number: ")
+
+        j = 0
+        guesslist = []
+        numberstoguess = len(secretNum)
+        while j < numberstoguess:
+            guess = input(f"guess number {j+1}: ")
+
+            try:
+                if lownum <= int(guess) <= highnum:
+                    guesslist.append(int(guess))
+                    j += 1
+
+                else:
+                    print(f"please enter a character between {lownum} and {highnum}")
+            except ValueError:
+                print("please enter a valid number")
+
+
+        '''guess1 = input("Guess first number: ")
         guess2 = input("Guess second number: ")
         guess3 = input("Guess third number: ")
         guess4 = input("Guess fourth number: ")
 
-        guess = [guess1, guess2, guess3, guess4]
+        guesslist = [guess1, guess2, guess3, guess4]'''
+
         guessNum += 1
 
-    # check if the values are present
+        # check if the values are present
 
-        for num in guess:
+        for num in guesslist:
             if int(num) in tempSecret:
                 rightNum.append(num)
                 tempSecret.remove(int(num))
 
-    # check the values of are in the correct position
+        # check the values of are in the correct position
         i = 0
         while i < 4:
-            if int(guess[i]) == secretNum[i]:
-                rightPos.append(guess[i])
+            if int(guesslist[i]) == secretNum[i]:
+                rightPos.append(guesslist[i])
                 i += 1
             else:
                 i += 1
 
+        print(f"your guess: {guesslist}")
         print(f"you have guessed {len(rightNum)} correct numbers")
         print(f"you have guessed {len(rightPos)} numbers in the correct position")
         if len(rightPos) == 4:
